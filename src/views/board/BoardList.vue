@@ -12,10 +12,10 @@
     <table class="w3-table-all">
       <thead>
         <tr>
-          <th>No</th>
+          <th>id</th>
           <th>제목</th>
-          <th>작성자</th>
-          <th>등록일시</th>
+          <th>저자</th>
+          <th>분류</th>
         </tr>
       </thead>
       <tbody>
@@ -90,20 +90,7 @@ export default {
     return {
       requestBody: {}, //리스트 페이지 데이터전송
       list: {}, //리스트 데이터
-      no: '', //게시판 숫자처리
-      paging: {
-        block: 0,
-        end_page: 0,
-        next_block: 0,
-        page: 0,
-        page_size: 0,
-        prev_block: 0,
-        start_index: 0,
-        start_page: 0,
-        total_block_cnt: 0,
-        total_list_cnt: 0,
-        total_page_cnt: 0,
-      }, //페이징 데이터
+      paging: {}, //페이징 데이터
       page: this.$route.query.page ? this.$route.query.page : 1,
       size: this.$route.query.size ? this.$route.query.size : 10,
       keyword: this.$route.query.keyword,
@@ -122,20 +109,13 @@ export default {
   },
   methods: {
     fnGetList() {
-      this.requestBody = {
-        // 데이터 전송
-        keyword: this.keyword,
-        page: this.page,
-        size: this.size,
-      }
-
       this.$axios
-        .get(this.$serverUrl + '/board/list', {
-          params: this.requestBody,
-          headers: {},
-        })
+        .get(this.$serverUrl + '/kr/api/books?pageNum=1&pageSize=10', {})
         .then((res) => {
-          this.list = res.data //서버에서 데이터를 목록으로 보내므로 바로 할당하여 사용할 수 있다.
+          this.list = res.data.data.list
+          this.paging = res.data.data
+          console.log(this.list)
+          console.log(this.paging)
         })
         .catch((err) => {
           if (err.message.indexOf('Network Error') > -1) {
