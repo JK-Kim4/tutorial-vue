@@ -19,13 +19,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(row, idx) in list" :key="idx">
-          <td>{{ row.idx }}</td>
-          <td>
-            <a v-on:click="fnView(`${row.idx}`)">{{ row.title }}</a>
-          </td>
-          <td>{{ row.author }}</td>
-          <td>{{ row.created_at }}</td>
+        <tr v-for="(value, key) in list" :key="key">
+          <td>{{ value }}</td>
+          <td></td>
+          <td>{{ value }}</td>
+          <td>{{ key }}</td>
         </tr>
       </tbody>
     </table>
