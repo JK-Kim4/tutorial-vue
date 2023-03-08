@@ -20,10 +20,18 @@
       </thead>
       <tbody>
         <tr v-for="(value, key) in list" :key="key">
-          <td>{{ value }}</td>
-          <td></td>
-          <td>{{ value }}</td>
-          <td>{{ key }}</td>
+          <td>{{ value.bookId }}</td>
+          <td>{{ value.bookTitle }}</td>
+          <td>
+            <span v-for="(value2, key2) in value.authorList" :key="key2">
+              {{ value2.authorKrNm }},
+            </span>
+          </td>
+          <td>
+            <span v-for="(value3, key3) in value.categoryList" :key="key3">
+              {{ value3.metaValue }}
+            </span>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -106,6 +114,7 @@ export default {
     this.fnGetList()
   },
   methods: {
+    //목록 조회
     fnGetList() {
       this.$axios
         .get(this.$serverUrl + '/kr/api/books?pageNum=1&pageSize=10', {})
@@ -120,6 +129,26 @@ export default {
             alert('네트워크가 원활하지 않습니다.\n잠시 후 다시 시도해주세요.')
           }
         })
+    },
+    //상세보기 페이지 이동
+    fnView(bookId) {
+      this.requestBody.bookId = bookId
+      this.$route.push({
+        path: './detail',
+        quert: this.requestBody,
+      })
+    },
+    //신규 등록
+    fnSave() {
+      this.$route.push({
+        path: './save',
+      })
+    },
+    fnPage(n) {
+      if (this.page !== n) {
+        this.page = n
+        this.fnGetList()
+      }
     },
   },
 }
