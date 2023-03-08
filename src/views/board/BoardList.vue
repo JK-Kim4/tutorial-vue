@@ -20,10 +20,18 @@
       </thead>
       <tbody>
         <tr v-for="(value, key) in list" :key="key">
-          <td>{{ value }}</td>
-          <td></td>
-          <td>{{ value }}</td>
-          <td>{{ key }}</td>
+          <td>{{ value.bookId }}</td>
+          <td>{{ value.bookTitle }}</td>
+          <td>
+            <span v-for="(value2, key2) in value.authorList" :key="key2">
+              {{ value2.authorKrNm }},
+            </span>
+          </td>
+          <td>
+            <span v-for="(value3, key3) in value.categoryList" :key="key3">
+              {{ value3.metaValue }}
+            </span>
+          </td>
         </tr>
       </tbody>
     </table>
