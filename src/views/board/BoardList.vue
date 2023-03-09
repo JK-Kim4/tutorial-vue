@@ -19,16 +19,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(value, key) in list" :key="key">
+        <tr v-for="(value, key) in list">
           <td>{{ value.bookId }}</td>
           <td>{{ value.bookTitle }}</td>
           <td>
-            <span v-for="(value2, key2) in value.authorList" :key="key2">
+            <span v-for="(value2, key2) in value.authorList">
               {{ value2.authorKrNm }},
             </span>
           </td>
           <td>
-            <span v-for="(value3, key3) in value.categoryList" :key="key3">
+            <span v-for="(value3, key3) in value.categoryList">
               {{ value3.metaValue }}
             </span>
           </td>
