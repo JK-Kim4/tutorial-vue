@@ -19,16 +19,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(value, key) in list">
-          <td>{{ value.bookId }}</td>
-          <td>{{ value.bookTitle }}</td>
+        <tr v-for="(value, key) in list" :key="key">
           <td>
-            <span v-for="(value2, key2) in value.authorList">
+            {{ value.bookId }}
+          </td>
+          <td>
+            <a v-on:click="fnView(`${value.bookId}`)">{{ value.bookTitle }}</a>
+          </td>
+          <td>
+            <span v-for="(value2, key2) in value.authorList" :key="key2">
               {{ value2.authorKrNm }},
             </span>
           </td>
           <td>
-            <span v-for="(value3, key3) in value.categoryList">
+            <span v-for="(value3, key3) in value.categoryList" :key="key3">
               {{ value3.metaValue }}
             </span>
           </td>
@@ -121,8 +125,6 @@ export default {
         .then((res) => {
           this.list = res.data.data.list
           this.paging = res.data.data
-          console.log(this.list)
-          console.log(this.paging)
         })
         .catch((err) => {
           if (err.message.indexOf('Network Error') > -1) {
@@ -133,14 +135,14 @@ export default {
     //상세보기 페이지 이동
     fnView(bookId) {
       this.requestBody.bookId = bookId
-      this.$route.push({
+      this.$router.push({
         path: './detail',
-        quert: this.requestBody,
+        query: this.requestBody,
       })
     },
     //신규 등록
     fnSave() {
-      this.$route.push({
+      this.$router.push({
         path: './save',
       })
     },
